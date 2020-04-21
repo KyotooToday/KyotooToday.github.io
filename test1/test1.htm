@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Every failure is leading towards success.">
+    <meta name="keywords"  content="王志彪的博客, Will Wang, 王志彪, Java">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="王志彪的博客">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="自律/坚持/耐心">
+    
+    <meta property="og:image" content="https://flyingwzb.github.io//img/will-wang.jpg">
+    <meta property="og:url" content="https://flyingwzb.github.io//">
+    <meta property="og:site_name" content="王志彪的博客">
+    
+    <title>王志彪的博客</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://flyingwzb.github.io//">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Will Wang's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    
+                    
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="/archive/">Archive</a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function () {
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function () {
+                // prevent frequently toggle
+                if ($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            }, 400)
+        },
+        open: function () {
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    };
+
+    // Bind Event
+    $toggle.addEventListener('click', function (e) {
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        } else {
+            __HuxNav__.open()
+        }
+    });
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function (e) {
+        if (e.target == $toggle) return;
+        if (e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    });
+</script>
+
+
+    <!-- Page Header -->
+
+
+
+
+
+
+
+<header class="intro-header" style="background-image: url('/img/post-bg-index.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="site-heading">
+        
+          <h1>Will Wang's Blog</h1>
+          <span class="subheading">自律/坚持/耐心</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+        <!-- USE SIDEBAR -->
+        <!-- PostList Container -->
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+            
+<div class="post-preview">
+    <a href="/2094/10/04/Architect-knowledge-map/">
+        <h2 class="post-title">
+            架构师知识图谱
+        </h2>
+        
+        <h3 class="post-subtitle">
+            收集整理规划架构师成长路径上需要提升的技能
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            《后端架构师技术图谱》
+
+推荐: 《Java技术书籍大全》 - awesome-java-books
+从初级开发者到资深架构师，看这些书就够了
+
+
+
+  数据结构
+    
+      队列
+      集合
+      链表、数组
+      字典、关联数组
+      栈
+      树
+        
+          二叉树
+          完全二叉树
+          平...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on October 4, 2094
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2094/10/03/Resource-Integration/">
+        <h2 class="post-title">
+            资源整合
+        </h2>
+        
+        <h3 class="post-subtitle">
+            收藏有关学习、工作、生活的优质资源，提高学习工作效率和生活品质
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            学习资源
+
+  Docker 初学者教程
+    
+      讲解 Docker 是什么，以及如何使用 Docker 构建分布式程序，并部署到云。
+    
+  
+  Kubernetes academy
+    
+      针对初学者的免费 Kubernetes 视频课程，帮助学习者理解 Kubernetes 的基本概念。
+    
+  
+
+
+工具
+
+  照片压缩
+  Java工具包
+...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on October 3, 2094
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/08/01/aliyun-centos7-install-mongodb/">
+        <h2 class="post-title">
+            阿里云ECS服务器centos7系统安装MongoDB
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Linux系统软件安装
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            简介
+
+  MongoDB 是一个基于分布式 文件存储的NoSQL数据库
+  由C++语言编写，运行稳定，性能高
+  旨在为 WEB 应用提供可扩展的高性能数据存储解决方案
+
+
+MongoDB特点
+
+  模式自由：可以把不同结构的文档存储在同一个数据库里
+  面向集合的存储：适合存储 JSON风格文件的形式
+  完整的索引支持：对任何属性可索引
+  复制和高可用性：支持服务器之间的数据复制，...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on August 1, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/06/02/Design-Patterns/">
+        <h2 class="post-title">
+            设计模式之23种设计模式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            单例/工厂方法/抽象工厂/模板方法/建造者/代理/原型/中介者/命令/责任链/装饰/策略/适配器/迭代器/组合/观察者/门面/备忘录/访问者/状态/解释器/享元/桥梁
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            
+  单例模式
+  工厂方法模式
+  抽象工厂模式
+  模板方法模式
+  建造者模式
+  代理模式
+  原型模式
+  中介者模式
+  命令模式
+  责任链模式
+  装饰模式
+  策略模式
+  适配器模式
+  迭代器模式
+  组合模式
+  观察者模式
+  门面模式
+  备忘录模式
+  访问者模式
+  状态模式
+  解释器模式
+  享元模式
+  桥梁模式
+
+
+单例模式
+单例模式（Singleto...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on June 2, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/06/01/Design-Principles/">
+        <h2 class="post-title">
+            设计模式之6大设计原则
+        </h2>
+        
+        <h3 class="post-subtitle">
+            单一职责原则/里氏替换原则/依赖倒置原则/接口隔离原则/迪米特法则/开闭原则
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            
+  单一职责原则
+  里氏替换原则
+  依赖倒置原则
+  接口隔离原则
+  迪米特法则
+  开闭原则
+
+
+本文摘抄自《设计模式之禅》，结合自己的阅读感悟总结了一下。下面是书中的一些金句：
+
+  “变更才显真功夫”， 业务需求变更永无休止， 技术前进就永无止境， 在发生变更时才能发觉我们的设计或程序是否是松耦合。
+
+
+单一职责原则
+Single Responsibility Principl...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on June 1, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/03/02/Reverse-interview/">
+        <h2 class="post-title">
+            反向面试
+        </h2>
+        
+        <h3 class="post-subtitle">
+            向面试官提问
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            反向面试
+
+
+  大部分翻译自：https://github.com/viraptor/reverse-interview ，亦有其他网友补充。
+
+
+下面列表里的问题对于参加技术面试的人来说可能有些用。
+列表里的问题并不一定适用于某个特定的职位或者工作类型, 也没有排序
+最开始的时候这只是我自己的问题列表, 但是慢慢地添加了一些我觉得可能让我对这家公司亮红牌的问题。
+我也注意到被我面试的人提...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on March 2, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/03/01/interview-summary/">
+        <h2 class="post-title">
+            面试总结
+        </h2>
+        
+        <h3 class="post-subtitle">
+            聊一聊面经
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            基础知识
+是什么？
+有什么用？
+什么时候用？
+怎么用？
+多线程
+Java多线程
+IO流
+java IO流详解
+敏捷开发
+敏捷开发
+设计模式
+常见的设计模式
+spring cloud
+SpringCloud分布式开发五大神兽
+微服务
+理解微服务
+angularJS
+angularJS入门
+VUE.js
+VUE入门
+ActiveMQ和RabbitMQ的区别
+ActiveMQ和RabbitMQ的区...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on March 1, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/12/02/mind-mapping/">
+        <h2 class="post-title">
+            思维导图
+        </h2>
+        
+        <h3 class="post-subtitle">
+            整理一些学习工作类思维导图
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            
+
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on December 2, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/12/01/zhihu/">
+        <h2 class="post-title">
+            知乎
+        </h2>
+        
+        <h3 class="post-subtitle">
+            问你所问，想你所想，做你想做，行动起来！！！
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            你为什么总是和你的那个TA吵架？🔍
+
+  一方发现问题提出需求，试图改造对方；另一方拒绝被控制，升级矛盾；最后前者预期落空，矛盾愈演愈烈……
+  面对矛盾，伴侣双方最理想的关系应该是协作而不是竞争。
+  不要把任何事情理解成对方理所应当做的。任何关系都或多或少会有矛盾出现，想让对方按照你的方式去调整，首先自己必须学会去接受这些矛盾，尽自己所能去处理矛盾，并用合理的方式提出自己的诉求来影响对方...
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on December 1, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/11/02/Read-Three-Kingdoms/">
+        <h2 class="post-title">
+            阅读《三国演义》
+        </h2>
+        
+        <h3 class="post-subtitle">
+            三国演义里体现出的世道人心
+        </h3>
+        
+        <!-- 是否展示文章正文前200个字 -->
+        <!--<div class="post-content-preview">
+            吕布:言而无信，反复无常。
+袁术:智小谋大，利欲熏心。
+马谡:力小任重，自以为是。
+关羽:骄傲自满，目中无人。
+张飞:情绪失控，乱发脾气。
+董卓:德不配位，必有灾殃。
+
+        </div>-->
+    </a>
+    <p class="post-meta">
+        Posted by
+        
+        Will Wang
+        
+        on November 2, 2018
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page2">
+            Older Posts
+            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
+            </span>
+        </a>
+    </li>
+    
+</ul>
+
+
+        </div>
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+            <!-- Featured Tags -->
+            
+
+
+<section>
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        </a>
+        
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=%E6%A0%87%E7%AD%BE"
+                    title="标签"
+                    rel="2">标签</a>
+        
+                <a data-sort="0041" 
+                    href="/archive/?tag=Spring"
+                    title="Spring"
+                    rel="6">Spring</a>
+        
+                <a data-sort="0043" 
+                    href="/archive/?tag=%E9%98%85%E8%AF%BB"
+                    title="阅读"
+                    rel="4">阅读</a>
+        
+                <a data-sort="0043" 
+                    href="/archive/?tag=Blog"
+                    title="Blog"
+                    rel="4">Blog</a>
+        
+                <a data-sort="0043" 
+                    href="/archive/?tag=java"
+                    title="java"
+                    rel="4">java</a>
+        
+                <a data-sort="0044" 
+                    href="/archive/?tag=%E9%9D%A2%E8%AF%95"
+                    title="面试"
+                    rel="3">面试</a>
+        
+                <a data-sort="0044" 
+                    href="/archive/?tag=Mybatis"
+                    title="Mybatis"
+                    rel="3">Mybatis</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=%E5%BF%AB%E6%8D%B7%E9%94%AE"
+                    title="快捷键"
+                    rel="2">快捷键</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"
+                    title="设计模式"
+                    rel="2">设计模式</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=Git"
+                    title="Git"
+                    rel="2">Git</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=Lucene"
+                    title="Lucene"
+                    rel="2">Lucene</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=MySQL"
+                    title="MySQL"
+                    rel="2">MySQL</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=Redis"
+                    title="Redis"
+                    rel="2">Redis</a>
+        
+                <a data-sort="0045" 
+                    href="/archive/?tag=SpringMVC"
+                    title="SpringMVC"
+                    rel="2">SpringMVC
+    </div>
+</section>
+
+
+            <!-- Short About -->
+            <section class="visible-md visible-lg">
+  <hr>
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+    
+    <img src="/img/will-wang.jpg" />
+    
+    
+    <p>但行好事，莫问前程。</p>
+    
+    <!-- SNS Link -->
+    
+
+
+<ul class="list-inline">
+
+
+  
+  
+  <li>
+    <a href="https://twitter.com/wzbcode">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.zhihu.com/people/zongguanxian">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa  fa-stack-1x fa-inverse">知</i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="http://weibo.com/wzb1994">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/flyingwzb">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+    
+    <p>
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+      wzbcode@163.com
+    </p>
+    
+  </div>
+</section>
+
+            <!-- Friends Blog -->
+            
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://kindle.archiew.top/">书舟网</a></li>
+  
+  <li><a href="http://www.ruanyifeng.com/home.html">阮一峰</a></li>
+  
+  <li><a href="https://www.alibabagroup.com/cn/global/home">阿里巴巴</a></li>
+  
+  <li><a href="https://www.tencent.com/zh-cn/index.html">腾讯</a></li>
+  
+  <li><a href="https://www.bytedance.com/zh">字节跳动</a></li>
+  
+</ul>
+
+        </div>
+        
+    </div>
+</div>
+
+
+<!-- 文章打赏功能 支持支付宝、微信打赏-->
+<script src='/js/ds.js'></script>
+<script>
+    new tctip({
+        top: '20%',
+        button: {
+            id: 6,
+            type: 'dashang'
+        },
+        list: [
+            {
+                type: 'alipay',
+                qrImg: 'data:image/jpeg;base64,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'
+            }, {
+                type: 'wechat',
+                qrImg: 'data:image/jpeg;base64,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'
+            }
+        ]
+    }).init()
+</script>
+
+
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  <li>
+    <a href="https://twitter.com/wzbcode">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.zhihu.com/people/zongguanxian">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa  fa-stack-1x fa-inverse">知</i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="http://weibo.com/wzb1994">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/flyingwzb">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; Will Wang's Blog 2020
+                    <br>
+                    Powered by <a href="https://flyingwzb.github.io">Will Wang Blog</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=flyingwzb&repo=flyingwzb.github.io&type=star&count=true" >
+                    </iframe>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量<span id="busuanzi_value_site_pv"></span>次，
+                    </span>
+                    <span id="busuanzi_container_site_uv">
+                        本站访客数<span id="busuanzi_value_site_uv"></span>人次
+                    </span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--网站数据统计-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+
+
+<!-- Multi-Lingual -->
+
+
+
+
+<!-- Image to hack wechat -->
+<!--<img src="/img/apple-touch-icon.png" width="0" height="0" />-->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
