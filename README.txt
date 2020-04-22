@@ -9,6 +9,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 更新记录
 2020.4.21        修改了主页，增加了一个页面
-2020.4.22        尝试增加了一个留言板功能（https://formspree.io/提供的服务）
+2020.4.22        尝试增加了一个留言板功能,formspree提供的服务（https://formspree.io/）
 
 
