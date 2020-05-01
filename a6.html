@@ -1,69 +1,312 @@
-<!DOCTYPE HTML>
-<!--    2020.5.1  建立此网页                                                                         	
--->
-<html>
-	<head>    
-		<!--icon -->
-		<link rel="shortcut icon" href="favicon.ico.png" >
-		
-		<title>COVID 19 </title> <!-- 浏览器标题 -->
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
 
-		<!-- Header -->
-			<header id="header">
-				<a href="index.html" class="title">Liuhouzhi's Blog</a>   <!--总标题 -->
-				<nav>
-					<ul>
-						<li><a href="index">主页</a></li>                            <!-- 此处添加顶部栏 -->
-						<li><a href="Article-area" class="active">文章区</a></li>
-						<li><a href="Video-area" class="active">视频区</a></li>
-						<li><a href="Resource-area">资源区</a></li>
-						<li><a href="About">关于</a></li>
-					
-					</ul>
-				</nav>
-			</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>疫情地图展示</title>
+  <style>
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+    }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    #myEcharts {
+      width: 800px;
+      height: 500px;
+      border: solid 1px red;
+      margin: 0 auto;
+    }
+  </style>
+  <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
+  <!-- 引入 echarts.js -->
+  <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
+  <!--引入中国的地图数据js文件，引入后会自动注册地图名字和数据-->
+  <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
 
-				<!-- Main。-->
-					<section id="main" class="wrapper">
-						<div class="inner">
-							<h1 class="major">COVID 19 地图 </h1>
-							
-							  
-			
-<iframe width=”650″ height=”400″ frameborder=”0″ scrolling=”no” marginheight=”0″ marginwidth=”0″ title=”2019-nCoV” src=”//arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=true&previewImage=false&scale=true&disable_scroll=true&theme=light”></iframe>						
-							 
-							 
-						</div>
-					</section>
+</head>
 
-			</div>
+<body>
+  <div class="container">
+    <h3>累计确诊人数如下：</h3>
+    <!--为echarts准备一个dom容器-->
+    <div id="myEcharts"></div>
+  </div>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://liuhouzhi0809.github.io">liuhouzhi0809</a></li>
-					</ul>
-				</div>
-			</footer>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+  <script>
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('myEcharts'));
+    // 指定图表的配置项和数据
+    option = {
+      title: {
+        text: '中国疫情图',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['中国疫情图']
+      },
+      visualMap: {
+        type: 'piecewise',
+        pieces: [
+          { min: 1000, max: 1000000, label: '大于等于1000人', color: '#372a28' },
+          { min: 500, max: 999, label: '确诊500-999人', color: '#4e160f' },
+          { min: 100, max: 499, label: '确诊100-499人', color: '#974236' },
+          { min: 10, max: 99, label: '确诊10-99人', color: '#ee7263' },
+          { min: 1, max: 9, label: '确诊1-9人', color: '#f5bba7' },
+        ],
+        color: ['#E0022B', '#E09107', '#A3E00B']
+      },
+      toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      roamController: {
+        show: true,
+        left: 'right',
+        mapTypeControl: {
+          'china': true
+        }
+      },
+      series: [
+        {
+          name: '确诊数',
+          type: 'map',
+          mapType: 'china',
+          roam: false,
+          label: {
+            show: true,
+            color: 'rgb(249, 249, 249)'
+          },
+          data: []
+        }
+      ]
+    };
 
-	</body>
+    //使用指定的配置项和数据显示图表
+    myChart.setOption(option);
+
+    //获取数据
+    function getData() {
+      $.ajax({
+        url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
+        dataType: "jsonp",
+        success: function (data) {
+          //  console.log(data.data)
+          var res = data.data || "";
+          res = JSON.parse(res);
+          var newArr = [];
+          //newArr的数据格式为：
+          // [{
+          //   name: '北京11',
+          //   value: 212
+          // }, {
+          //   name: '天津',
+          //   value: 60
+          // }]
+          if (res) {
+            //获取到各个省份的数据
+            var province = res.areaTree[0].children;
+            for (var i = 0; i < province.length; i++) {
+              var json = {
+                name: province[i].name,
+                value: province[i].total.confirm
+              }
+              newArr.push(json)
+            }
+            console.log(newArr)
+            console.log(JSON.stringify(newArr))
+            //使用指定的配置项和数据显示图表
+            myChart.setOption({
+              series: [
+                {
+                  name: '确诊数',
+                  type: 'map',
+                  mapType: 'china',
+                  roam: false,
+                  label: {
+                    show: true,
+                    color: 'rgb(249, 249, 249)'
+                  },
+                  data: newArr
+                }
+              ]
+            });
+          }
+        }
+
+      })
+    }
+    getData();
+
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>疫情地图展示</title>
+  <style>
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    #myEcharts {
+      width: 800px;
+      height: 500px;
+      border: solid 1px red;
+      margin: 0 auto;
+    }
+  </style>
+  <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
+  <!-- 引入 echarts.js -->
+  <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
+  <!--引入中国的地图数据js文件，引入后会自动注册地图名字和数据-->
+  <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <h3>累计确诊人数如下：</h3>
+    <!--为echarts准备一个dom容器-->
+    <div id="myEcharts"></div>
+  </div>
+
+
+  <script>
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('myEcharts'));
+    // 指定图表的配置项和数据
+    option = {
+      title: {
+        text: '中国疫情图',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['中国疫情图']
+      },
+      visualMap: {
+        type: 'piecewise',
+        pieces: [
+          { min: 1000, max: 1000000, label: '大于等于1000人', color: '#372a28' },
+          { min: 500, max: 999, label: '确诊500-999人', color: '#4e160f' },
+          { min: 100, max: 499, label: '确诊100-499人', color: '#974236' },
+          { min: 10, max: 99, label: '确诊10-99人', color: '#ee7263' },
+          { min: 1, max: 9, label: '确诊1-9人', color: '#f5bba7' },
+        ],
+        color: ['#E0022B', '#E09107', '#A3E00B']
+      },
+      toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      roamController: {
+        show: true,
+        left: 'right',
+        mapTypeControl: {
+          'china': true
+        }
+      },
+      series: [
+        {
+          name: '确诊数',
+          type: 'map',
+          mapType: 'china',
+          roam: false,
+          label: {
+            show: true,
+            color: 'rgb(249, 249, 249)'
+          },
+          data: []
+        }
+      ]
+    };
+
+    //使用指定的配置项和数据显示图表
+    myChart.setOption(option);
+
+    //获取数据
+    function getData() {
+      $.ajax({
+        url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
+        dataType: "jsonp",
+        success: function (data) {
+          //  console.log(data.data)
+          var res = data.data || "";
+          res = JSON.parse(res);
+          var newArr = [];
+          //newArr的数据格式为：
+          // [{
+          //   name: '北京11',
+          //   value: 212
+          // }, {
+          //   name: '天津',
+          //   value: 60
+          // }]
+          if (res) {
+            //获取到各个省份的数据
+            var province = res.areaTree[0].children;
+            for (var i = 0; i < province.length; i++) {
+              var json = {
+                name: province[i].name,
+                value: province[i].total.confirm
+              }
+              newArr.push(json)
+            }
+            console.log(newArr)
+            console.log(JSON.stringify(newArr))
+            //使用指定的配置项和数据显示图表
+            myChart.setOption({
+              series: [
+                {
+                  name: '确诊数',
+                  type: 'map',
+                  mapType: 'china',
+                  roam: false,
+                  label: {
+                    show: true,
+                    color: 'rgb(249, 249, 249)'
+                  },
+                  data: newArr
+                }
+              ]
+            });
+          }
+        }
+
+      })
+    }
+    getData();
+
+  </script>
+</body>
 </html>
