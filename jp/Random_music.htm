@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- 本网页建立于2020.5.21-->
+<!-- saved from url=(0073)https://jxiaoc.github.io/animeMusic/demo.html?id=5b8530e9b02de202d2f97b1a -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>随机播放二次元歌曲</title>
+    <link rel="stylesheet" href="./Random_music/anime_music_icon.css">
+    <link rel="stylesheet" href="./Random_music/demo.css">
+</head>
+<body>
+<div class="bg"><img src="./demo_files/01d698d73fd26c2b.jpg" class="show" style="transform: scale(1, 1);"></div>
+<div class="mask"></div>
+<div class="start" onclick="start()" style="display: none;">Play()</div>
+<div class="player">
+    <div class="logo"><img src="./demo_files/684548841fafbe6a.jpg" class="show"></div>
+    <div class="control iconfont icon-pause"></div>
+    <div class="next iconfont icon-next"></div>
+    <div class="time">00:00/00:00</div>
+    <div class="progress">
+        <div class="now"></div>
+    </div>
+    <div class="name"> ↑点击按钮开始播放</div>
+</div>
+
+<script type="text/javascript" src="./Random_music/anime-music.js"></script>
+<script>
+    //为了方便查看, JS调用这一块的代码就不单独放一个js文件了
+    function getQueryString(name, replace) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var _ = replace ? decodeURIComponent(window.location.search).replace(/</g, '&').replace(/>/g, '&') : window.location.search;
+        var r = _.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    animeMusic.onProgress = function (per, now, all) {
+        //监听播放进度事件,返回的依次为播放百分比（Number）， 当前播放时间（MM:SS），总长度（MM:SS）
+        document.querySelector('.player .progress .now').style.width = per + '%';
+        document.querySelector('.player .time').innerText = now + '/' + all;
+    };
+
+    animeMusic.onLoaded = function (res) {
+        //数据请求完毕，res为请求结果
+        console.log(res);
+
+        history.pushState(null, document.title, '?id=' + res.id);
+        document.querySelector('.player .name').innerText = res.title + ' - ' + res.anime_info.title;
+
+        var bg = document.createElement("img");
+        bg.src = res.anime_info.bg;
+        bg.onload = function () {
+            if (document.querySelectorAll('.bg img').length > 1) {
+                document.querySelectorAll('.bg img')[0].className = "";
+                setTimeout(function () {
+                    document.querySelectorAll('.bg img')[0].remove();
+                }, 1100);
+            }
+            this.className = "show";
+            setTimeout(function(){
+                document.querySelectorAll('.bg img')[document.querySelectorAll('.bg img').length - 1].style.transform = 'scale(1.0,1.0)';
+            }, 10);
+        };
+        document.querySelector('.bg').append(bg);
+
+        var logo = document.createElement("img");
+        logo.src = res.anime_info.logo;
+        logo.onload = function () {
+            if (document.querySelectorAll('.player .logo img').length > 1) {
+                document.querySelectorAll('.player .logo img')[0].className = "";
+                setTimeout(function () {
+                    document.querySelectorAll('.player .logo img')[0].remove();
+                }, 1100);
+            }
+            this.className = "show";
+        };
+        document.querySelector('.player .logo').append(logo);
+    };
+
+    animeMusic.onPlay = function () {
+        //监听播放开始事件, 切换按钮状态和点击事件
+        document.querySelector('.player .control').className = 'control iconfont icon-pause';
+        document.querySelector('.player .control').onclick = function () {
+            animeMusic.Pause();
+        };
+    };
+
+    animeMusic.onLoad = animeMusic.onPlay;
+
+    animeMusic.onPause = function () {
+        //监听播放开始事件, 切换按钮状态和点击事件
+        document.querySelector('.player .control').className = 'control iconfont icon-play';
+        document.querySelector('.player .control').onclick = function () {
+            animeMusic.Play();
+        };
+    };
+
+    document.querySelector('.player .next').onclick = function () {
+        //给下一曲按钮绑定点击事件
+        animeMusic.Next();
+    };
+
+    animeMusic.bindPlayTo('.player .progress'); //绑定鼠标点击进度条时的处理事件
+
+    document.querySelector('.player .control').onclick = function () {
+        //给播放按钮赋予初始事件, 第一次加载音乐使用Next
+        animeMusic.Next();
+    };
+
+    animeMusic.recommend = true; //只播放推荐的音乐
+
+    function start() {
+        if (getQueryString('id')) {
+            animeMusic.Next(getQueryString('id'));
+        } else {
+            animeMusic.Next();
+        }
+        document.querySelector('.start').style.display = 'none';
+    }
+</script>
+</body></html>
