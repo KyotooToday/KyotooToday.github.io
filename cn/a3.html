@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<!--    2020.4.27  建立此网页                                                                         	
+-->
+<html>
+	<head>    
+		<!--icon -->
+		<link rel="shortcut icon" href="favicon.ico.png" >
+		
+		<title>Mac移动硬盘不正确断开连接导致无法读取加载的解决方法</title> <!-- 浏览器标题 -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Liuhouzhi's Blog</a>   <!--总标题 -->
+				<nav>
+					<ul>
+						<li><a href="index">主页</a></li>                            <!-- 此处添加顶部栏 -->
+						<li><a href="Article-area" class="active">文章区</a></li>
+						<li><a href="Video-area" class="active">视频区</a></li>
+						<li><a href="Resource-area">资源区</a></li>
+						<li><a href="About">关于</a></li>
+					
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main。-->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Mac移动硬盘不正确断开连接导致无法读取加载的解决方法</h1>
+							
+					</p>情况描述  </p>
+          </p>本人有一台 2016年的 MacBook Air连接移动硬盘，如果不正常推出，比如是再连接一个移动硬盘时，或者没有正常推出，直接拔出来了，甚至有时候长时间连接，但是没有使用时，由于硬盘的自我休眠，这个时候再次链接就会遇到无法装载的问题，但是可以通过命令行查看到。</p>
+          </p>解决</p>
+          </p>1、在终端中用命令行输入</p>
+          </p>diskutil list</p>
+          </p>会弹出以下内容:</p>
+          </p>disk2就是我的外接移动硬盘</p>
+          <img src="images/a3-1.png" width="559" height="331">   <!-- 显示图片 -->
+          </p>2、再输入</p>
+          </p>sudo diskutil mount /dev/disk2</p>
+          </p>这时候会出现不同的情况：</p>
+          </p>情况一</p>
+          <img src="images/a3-2.png" width="528" height="38">   <!-- 显示图片 -->
+          </p>可以装载上</p>
+          </p>即使一直显示</p>
+          </p>volume on disk2 timed out waiting to mount</p>
+          </p>有可能已经装载上了</p>
+          </p>情况二</p>
+          </p>显示：</p>
+          </p>Volume on disk2 failed to mount; if it has a partitioning scheme, use "diskutil mountDisk"</p>
+          </p>If the volume is damaged, try the "readOnly" option</p>
+          </p>根据提示操作</p>
+          </p>sudo diskutil mountDisk /dev/disk2</p>
+          </p>显示：</p>
+          </p>Volume(s) mounted successfully</p>
+          </p>这种情况下基本能装载上了</p>
+          </p>如果有问题，你也可以通过这个只读查看下</p>
+          </p>diskutil mountDisk readOnly /dev/disk2</p>
+          </p>情况三</p>
+          </p>如果上面两个方法都不行，那再执行mout的之前执行</p>
+          </p>sudo fsck_hfs -fy /dev/disk2</p>
+          </p>在执行装载命令之前先执行上边这行命令</p>
+          </p>sudo diskutil mount /dev/disk2 或者  sudo diskutil mountDisk /dev/disk2</p>
+							 
+							 
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://liuhouzhi0809.github.io">liuhouzhi0809</a></li>
+							<!--网站数据统计-->
+						 </iframe>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        本站总访问量<span id="busuanzi_value_site_pv"></span>次，
+                    </span>
+                    <span id="busuanzi_container_site_uv">
+                        本站访客数<span id="busuanzi_value_site_uv"></span>人次
+                    </span>
+                                                <script async="" src="busuanzi.pure.mini.js"></script>
+
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
