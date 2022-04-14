@@ -35,7 +35,7 @@
     setcookie("code",'',time()-1); 
    } 
    //跳转到用户首页 
-   header('refresh:3;url=index.php'); 
+   header('refresh:3;url=user.php'); 
   } 
  } 
 ?>
